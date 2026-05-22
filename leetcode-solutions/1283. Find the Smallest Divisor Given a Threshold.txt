@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int smallestDivisor(vector<int>& nums, int threshold) {
+        int n=nums.size();
+        int low=1;
+        int high=*max_element(nums.begin(),nums.end());
+
+        while(low<=high){
+            long long mid=(low+high)/2;
+            long long step=0;
+
+            for(int i=0;i<n;i++){
+                if(nums[i]%mid==0){
+                    step+=nums[i]/mid;
+                }
+                else{
+                    step+=(nums[i]/mid)+1;
+                }
+            }
+
+            if(step>threshold){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return low;
+    }
+};

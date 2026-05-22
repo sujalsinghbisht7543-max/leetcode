@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int n=nums.size();
+        int count=0;
+        int jump=nums[0];
+        int prev=0;
+        for(int i=1;i<n;i++){
+            jump--;
+              if(n-i-1<=jump){
+                count++;
+                break;
+            }
+
+            if(nums[i]>jump){
+            jump=nums[i];
+            count++;
+            if(n-i-1<=jump){
+                count++;
+                break;
+            }
+            }
+        }
+        return count;
+    }
+};

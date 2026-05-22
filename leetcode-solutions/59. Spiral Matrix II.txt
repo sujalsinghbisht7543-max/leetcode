@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        
+        int left=0;
+        int right=n-1;
+        int low=0;
+        int high=n-1;
+        int matrix[n][n];
+        int a=1;
+        
+
+        while(low<=high && left<=right){
+            for(int i=left;i<=right;i++){
+                matrix[low][i]=a;
+                a++;
+            }
+            low++;
+        
+               for(int i=low;i<=high;i++){
+                matrix[i][right]=a;
+                a++;
+               }
+               right--;
+               
+               if(low<=high){
+               for(int i=right;i>=left;i--){
+                matrix[high][i]=a;
+                a++;
+               }
+               high--;
+               }
+                
+                if(left<=right){
+               for(int i=high;i>=low;i--){
+                matrix[i][left]=a;
+                a++;
+                
+               }
+               left++;
+                }
+
+        }
+        vector<vector<int>>result;
+
+        for(int i=0;i<n;i++){
+            vector<int>temp;
+            for(int j=0;j<n;j++){
+                temp.push_back(matrix[i][j]);
+            }
+            result.push_back(temp);
+        }
+return result;
+        
+    }
+};

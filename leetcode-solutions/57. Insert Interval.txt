@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>>mintervals;
+        int n=intervals.size();
+        int count=0;
+         
+         if(intervals.size()==0){
+            mintervals.push_back({newInterval[0],newInterval[1]});
+            return mintervals;
+         }
+        
+
+        for(int i=0;i<n;i++){
+            int start=intervals[i][0];
+            int end=intervals[i][1];
+            if(newInterval[0]<=start && count==0){
+                if(newInterval[0]==start){
+                    if(newInterval[1]>=end){
+                     mintervals.push_back({start,end});
+                     mintervals.push_back({newInterval[0],newInterval[1]});
+                     count++;
+                    }
+                }
+                else{
+                mintervals.push_back({newInterval[0],newInterval[1]});
+                mintervals.push_back({start,end});
+                count++;
+                }
+            }
+            else{
+                mintervals.push_back({start,end});
+            }
+        }
+
+        if(newInterval[0]>mintervals[n-1][0]){
+            mintervals.push_back({newInterval[0],newInterval[1]});
+        }
+
+        vector<vector<int>>ans;
+
+        int m=mintervals.size();
+
+        for(int i=0;i<m;i++){
+            int start=mintervals[i][0];
+            int end=mintervals[i][1];
+
+            if(!ans.empty() && end<=ans.back()[1]){
+                continue;
+            }
+            else{
+            for(int j=i+1;j<m;j++){
+                if(mintervals[j][0]<=end){
+                    end=max(mintervals[j][1],end);
+                }
+                else{
+                    break;
+                }
+            }
+            ans.push_back({start,end});
+        }
+         
+        }
+        return ans;
+    }
+};

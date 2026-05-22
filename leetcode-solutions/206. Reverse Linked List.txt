@@ -1,0 +1,78 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ /*
+
+ *******************using stack*********************
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head==NULL){
+            return NULL;
+        }
+        vector<int>v;
+
+        ListNode* temp=head;
+        while(temp){
+            v.push_back(temp->val);
+            temp=temp->next;
+        }
+        
+        ListNode* a =new ListNode(v[v.size()-1]);
+        ListNode* mover=a;
+        for(int i=v.size()-2;i>=0;i--){
+        ListNode* temp =new ListNode(v[i]);
+        mover->next=temp;
+        mover=temp;
+    }
+    return a;
+    }
+};*/
+
+
+/*
+*********************using iterative meathod***********************
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* temp=head;
+        ListNode* prev=NULL;
+        while(temp){
+            ListNode* x=temp->next;
+            temp->next=prev;
+            prev=temp;
+            temp=x;
+        }
+       return prev;
+    }
+};
+*/
+
+// using recursion
+class Solution {
+public:
+ListNode* reverse(ListNode* head){
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+
+    ListNode* nhead=reverse(head->next);
+    ListNode* front=head->next;
+    front->next=head;
+    head->next=NULL;
+    return nhead;
+
+}
+
+    ListNode* reverseList(ListNode* head) {
+         head=reverse(head);
+        return head;
+    }
+};

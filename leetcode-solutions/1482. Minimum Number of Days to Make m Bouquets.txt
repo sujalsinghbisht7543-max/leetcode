@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        int low=1;
+        int high=*max_element(bloomDay.begin(),bloomDay.end());
+        int n=bloomDay.size();
+
+        while(low<=high){
+            long long day=(low+high)/2;
+int ready=0;
+int book=0;
+
+if(bloomDay.size()<(long long)m*k){
+    return -1;
+}
+            for(int i=0;i<n;i++){
+                if(bloomDay[i]<=day){
+                    ready++;
+                    if(ready==k){
+                        book++;
+                        ready=0;
+                    }
+                }
+                else{
+                    ready=0;
+                }
+            }
+
+            if(book>=m){
+                high=day-1;
+            }
+            else{
+                low=day+1;
+            }
+        }
+        return low;
+    }
+};

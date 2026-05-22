@@ -1,0 +1,67 @@
+/*class Solution {
+public:
+    int found(vector<int>& matrix,int m,int target){
+        int low=0;
+        int high=m-1;
+        int ans=0;
+        while(low<=high){
+            int mid=(low+high)/2;
+
+            if(matrix[mid]==target){
+                ans=1;
+                break;
+            }
+            else if(matrix[mid]>target){
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return ans;
+    }
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m=matrix.size();
+        int n=matrix[0].size();
+
+        int x=false;
+        for(int i=0;i<m;i++){
+            int count=found(matrix[i],n,target);
+            if(count==1){
+                return true;
+            }
+        }
+        return false;
+    }
+};*/
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+       
+       if(matrix.size()==0){
+        return false;
+       }
+       int m=matrix.size();
+       int n=matrix[0].size();
+       int low=0;
+       int high=(n*m)-1;
+
+       while(low<=high){
+        int mid=(low+high)/2;
+        int row=mid/n;
+        int col=mid%n;
+
+        if(matrix[row][col]==target){
+            return true;
+        }
+        else if(matrix[row][col]>target){
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+       }
+       return false;
+    }
+};
